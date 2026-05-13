@@ -1,8 +1,8 @@
 import cv2
 import numpy as np
 import time
-og_vid = cv2.VideoCapture("video.mp4")
-time.sleep(3)
+og_vid = cv2.VideoCapture("MyVideo.mp4")
+time.sleep(1)
 count = 0
 bg = 0
 
@@ -15,6 +15,9 @@ bg = np.flip(bg, axis = 1)
 
 while(og_vid.isOpened()):
     exit_value,current_frame = og_vid.read()
+    if exit_value == False:
+        break
+
     count = count + 1
     current_frame = np.flip(current_frame, axis = 1)
     HSV_frame = cv2.cvtColor(current_frame,cv2.COLOR_BGR2HSV)
@@ -35,7 +38,7 @@ while(og_vid.isOpened()):
     mask2 = cv2.bitwise_not(mask1)
 
     result1 = cv2.bitwise_and(bg, bg, mask = mask1)
-    result2 = cv2.bitwise_and(HSV_frame, HSV_frame, mask = mask2)
+    result2 = cv2.bitwise_and(current_frame, current_frame, mask = mask2)
     final_output = cv2.addWeighted(result1,1,result2,1,0)
     
     cv2.imshow("INVISIBLE MAN", final_output)

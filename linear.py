@@ -4,7 +4,7 @@ key_found = False
 
 for i in range(len(data)):
     if data[i] == key:
-        print("Key found at",i + 17)
+        print("Key found at",i + 1)
         key_found = True
         break
 
